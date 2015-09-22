@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	document.write('');
+	</script>
+</head>
+<body>
+	<button id='b_slice'>splice</button>
+	<button id='b_add'>add</button>
+
+	<div id='debug'></div>
+<script>
+
+
+	
+	array_properties	=	[{},{},{}]
+
+	array_properties[0].li_title = 'poker';
+	array_properties[1].li_title = 'chess';
+	array_properties[2].li_title = 'sorry';
+	b_slice = document.getElementsByTagName('button')[0];
+	b_add   = document.getElementsByTagName('button')[1];
+	li_list = document.getElementsByTagName('li');
+	debug = document.getElementsByTagName('div')[0];
+	debug.innerText = '';
+
+	for (var i = 0; i<array_properties.length;i++){
+		debug.innerHTML = debug.innerHTML + array_properties[i].li_title + '<br>';
+	}
+
+	b_slice.addEventListener('click',function(){
+		var position = prompt('position');
+		position = Number(position);
+		array_properties.splice(position,1);
+		debug.innerHTML = '';
+		for (var i = 0; i<array_properties.length;i++){
+			debug.innerHTML = debug.innerHTML + array_properties[i].li_title + '<br>';
+		}
+		allobjects();
+
+	});
+	b_add.addEventListener('click',function(){
+		var position = prompt('position');
+		position = Number(position);
+		if (position === -1){
+			position = array_properties.length;
+		}
+		var title = prompt('li_title');
+		var new_li = {};
+		new_li.li_title = title;
+		array_properties.splice(position,0,new_li);
+		debug.innerHTML = '';
+		for (var i = 0; i<array_properties.length;i++){
+			debug.innerHTML = debug.innerHTML + array_properties[i].li_title + '<br>';
+		}
+		allobjects();
+	});
+
+
+var allobjects = function(){
+	var objs = []; // we'll store the object references in this array
+
+function walkTheObject( obj ) {
+    var keys = Object.keys( obj ); // get all own property names of the object
+
+    keys.forEach( function ( key ) {
+        var value = obj[ key ]; // get property value
+
+        // if the property value is an object...
+        if ( value && typeof value === 'object' ) { 
+
+            // if we don't have this reference...
+            if ( objs.indexOf( value ) < 0 ) {
+                objs.push( value ); // store the reference
+                walkTheObject( value ); // traverse all its own properties
+            } 
+
+        }
+    });
+}
+
+walkTheObject( this ); // start with the global object
+alert(objs.length)
+}
+
+	
+
+
+
+	
+
+
+
+
+
+	
+
+
+
+</script>
+</body>
+</html>
