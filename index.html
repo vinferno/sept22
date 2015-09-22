@@ -10,19 +10,23 @@
 <body>
 	<button id='b_slice'>splice</button>
 	<button id='b_add'>add</button>
+	<button id='b_rename'>rename</button>
 
 	<div id='debug'></div>
 <script>
 
+	var items= ['poker','chess','sorry'];
+	var array_properties =[];
 
-	
-	array_properties	=	[{},{},{}]
+	for (var i= 0; i<items.length;i++){
+		array_properties[i]	={};
 
-	array_properties[0].li_title = 'poker';
-	array_properties[1].li_title = 'chess';
-	array_properties[2].li_title = 'sorry';
+		array_properties[i].li_title = items[i];
+	}
+
 	b_slice = document.getElementsByTagName('button')[0];
 	b_add   = document.getElementsByTagName('button')[1];
+	b_rename   = document.getElementsByTagName('button')[2];
 	li_list = document.getElementsByTagName('li');
 	debug = document.getElementsByTagName('div')[0];
 	debug.innerText = '';
@@ -42,6 +46,22 @@
 		allobjects();
 
 	});
+
+		b_rename.addEventListener('click',function(){
+
+		var position = prompt('position');
+		var new_name = prompt('rename');
+		position = Number(position);
+		array_properties[position].li_title = new_name;
+		debug.innerHTML = '';
+		for (var i = 0; i<array_properties.length;i++){
+			debug.innerHTML = debug.innerHTML + array_properties[i].li_title + '<br>';
+		}
+		allobjects();
+
+	});
+
+
 	b_add.addEventListener('click',function(){
 		var position = prompt('position');
 		position = Number(position);
